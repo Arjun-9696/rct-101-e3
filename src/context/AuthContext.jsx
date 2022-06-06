@@ -1,7 +1,15 @@
-import React, { createContext } from "react";
+import React, { createContext ,useState} from "react";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+export default function AuthProvider({ children }){
+  const [isAuth,setIsAuth]=useState(false);
+  const handleToggleAuth =()=>{
+    setIsAuth(!isAuth);
+  }
+  return (
+    <AuthContext.Provider value={[isAuth, handleToggleAuth]}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
